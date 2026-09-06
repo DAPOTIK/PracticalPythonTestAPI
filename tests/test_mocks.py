@@ -11,7 +11,6 @@ class TestNewsMocks:
     @allure.title("Негативный тест. Ошибка сервера при получении ленты")
     @allure.description("сервер стабилен и 5xx не воспроизводится. Ответ 500 подменён заглушкой, проверяется наличие сообщения об ошибке.")
     @pytest.mark.negative
-    @pytest.mark.negative
     def test_news_feed_server_error(self, api_client):
         with allure.step("Мок с ответом 500"):
             mock_response = Mock(status_code = 500)
