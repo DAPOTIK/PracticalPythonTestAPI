@@ -78,7 +78,7 @@ class TestNews:
 
     @allure.story("Получение списка новостей")
     @allure.title("Позитивный тест. Получение новостей с фильтрами page и per_page")
-    @allure.description("Запрос ленты с page = 1 и per_page = 1. Ожидается страница ровно из одной новости")
+    @allure.description("Запрос ленты с page = 1 и per_page = 1. Ожидается страница из одной новости")
     @pytest.mark.positive
     def test_get_news_with_pagination(self, auth_client, news_data) -> None:
         with allure.step("Создание новости"):
@@ -103,7 +103,7 @@ class TestNews:
     @allure.description("Запрос ленты с фильтром по одному из тегов созданной новости")
     @pytest.mark.positive
     def test_get_news_with_tag_filter(self, auth_client, news_data) -> None:
-        with allure.step("Создание новости с тремя тегами"):
+        with allure.step("Создание новости с тегами"):
             auth_client.post(NEWS, data = news_data, expected_status = 200)
             tag = news_data["tags"].split(", ")[0]
 
@@ -194,10 +194,10 @@ class TestNews:
 
     @allure.story("Создание новости")
     @allure.title("Негативный тест. Создание новости с некорректным токеном")
-    @allure.description("Создание новости с невалидным Bearer-токеном. Ожидается 401")
+    @allure.description("Создание новости с невалидным токеном. Ожидается 401")
     @pytest.mark.negative
     def test_create_news_with_invalid_token(self, api_client, news_data) -> None:
-        with allure.step("Невалидный токена"):
+        with allure.step("Невалидный токен"):
             api_client.set_token("invalid.token.value")
 
         with allure.step("POST /api/news/ возвращает 401"):
@@ -209,7 +209,7 @@ class TestNews:
 
     @allure.story("Получение новости по ID")
     @allure.title("Негативный тест. Получение новости по несуществующему ID")
-    @allure.description("Запрос новости с id=0. Ожидается 404.")
+    @allure.description("Запрос новости с id = 0. Ожидается 404.")
     @pytest.mark.negative
     def test_get_news_by_not_existing_id(self, api_client) -> None:
         with allure.step("GET /api/news/0 возвращает 404"):
